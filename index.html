@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memory Game</title>
+    <link href="styles/style.css" rel="stylesheet">
+</head>
+<body>
+   
+    <div data-tid="App">
+       <div id="game_start">
+            <img class="game_logo" src="images/StartGame.png" alt="">
+            <h1 class="game_name">Memory game</h1>
+            <a class="button button_start_game" href="#game_start" data-tid="NewGame-startGame">Начать игру</a>
+       </div>
+       
+       <div id="game">
+            <div data-tid="Deck">
+                <div class="game_menu clearfix">
+                    <a class="button_new_game" href="#game" data-tid="Menu-newGame">Начать заново</a>
+                    <p class="scores">Очков: <span class="scores_value" data-tid="Menu-scores">0</span></p>
+                </div>
+                <div class="game_field"></div>
+            </div>
+       </div>
+       
+       <div id="game_end">
+           <img class="game_logo" src="images/Group2.png" alt="">
+           <p class="game_title">Поздравляем!<br>Ваш итоговый счет: <span class="scores_value">0</span></p>
+           <a class="button button_retry_game" href="#game_end" data-tid="EndGame-retryGame">Еще раз</a>
+       </div>
+    </div>
+    
+    <script src="scripts/main.js"></script>
+</body>
+</html>
