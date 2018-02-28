@@ -61,7 +61,6 @@
 					count_scores += pair_cards * 42;
 					pair_cards--;
 					scores_value[0].textContent = count_scores;
-					field[open_card].flipped = true;
 					
 					this.setAttribute("data-tid", "Card-flipped");
 					card[compare_card].setAttribute("data-tid", "Card-flipped");
@@ -78,8 +77,6 @@
 					}, delay);
 					card[open_card].classList.add("flipped");
 				} else {
-					field[open_card].flipped = false;
-					field[compare_card].flipped = false;
 					count_scores -= (field.length / 2 - pair_cards) * 42;
 //					if (count_scores < 0) {
 //						count_scores = 0;
@@ -102,7 +99,6 @@
 				
 			} else {  // Действие при первом нажатии
 				compare_card = open_card;
-				field[open_card].flipped = true;
 				this.setAttribute("data-tid", "Card-flipped");
 
 				card[open_card].classList.add("flipped");
@@ -139,7 +135,7 @@
 		// Разложим карты
 
 		for (var i = 0; i < field.length; i++) {
-			field[i] = {id: "", suit: "", flipped: "false"};
+			field[i] = {id: "", suit: ""};
 		}
 		for (var i = 0, j = 0; i < field.length; i += 2, j++) {
 			field[i].id = deck[j];
