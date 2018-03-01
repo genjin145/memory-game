@@ -107,7 +107,7 @@
             
             if (pair_cards <= 0) {
                 setTimeout(function() {
-                    game_end.style.display = "block";
+                    game_end.style.display = "inline-block";
                     game.style.display = "none";
                     scores_value[1].textContent = count_scores;
                 }, 2500);
@@ -180,7 +180,7 @@
 	
     button_start_game.onclick = function () {
         game_start.style.display = "none";
-        game.style.display = "block";
+        game.style.display = "inline-block";
         new_game();
     };
     
@@ -190,7 +190,7 @@
     
     button_retry_game.onclick = function () {
         game_end.style.display = "none";
-        game.style.display = "block";
+        game.style.display = "inline-block";
         new_game();
     };
 	

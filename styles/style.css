@@ -19,6 +19,20 @@ body {
     background: #1A6D2E;
 }
 
+.app {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.app::before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
 .clearfix::after {
     content: "";
     clear: both;
@@ -26,12 +40,12 @@ body {
 }
 
 #game_start, #game, #game_end {
-    margin: 85px auto;
+    display: inline-block;
     text-align: center;
+    vertical-align: middle;
 }
 
 #game_start {
-    display: block;
     width: 503px;
 }
 
