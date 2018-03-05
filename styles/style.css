@@ -16,7 +16,7 @@
 
 body {
     font-family: "Open Sans", sans-serif;
-    background: #1A6D2E;
+    background: #1B692D;
 }
 
 .app {
@@ -39,10 +39,18 @@ body {
     width: 100%;
 }
 
-#game_start, #game, #game_end {
+.gradient {
     display: inline-block;
     text-align: center;
     vertical-align: middle;
+    background: #1E7332;
+    border-radius: 100%;
+    box-shadow: 0 0 100px 100px #1E7332;
+}
+
+#game_start, #game, #game_end {
+    display: inline-block;
+    text-align: center;
 }
 
 #game_start {
@@ -158,6 +166,7 @@ body {
     background: #1A6D2E url(../images/back.png) no-repeat;
     background-size: 100% 100%;
 }
+
 .card .face_card {
     background-repeat: no-repeat;
     background-size: 100% 100%;
