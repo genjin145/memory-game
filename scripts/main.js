@@ -19,7 +19,7 @@
 
         open_card, // Порядковый номер карты на которую нажали
         compare_card, // Предыдущий номер карты на которую нажали
-        delay = 1000,
+        delay = 700,
         count_scores = 0, // Счетчик очков
         pair_cards = field.length / 2, // Счетчик парных карт
         let_click = false, // Позволять нажимать на карты
@@ -110,7 +110,7 @@
                     game_end.style.display = "inline-block";
                     game.style.display = "none";
                     scores_value[1].textContent = count_scores;
-                }, 2500);
+                }, 500);
             }
 		}
 		
