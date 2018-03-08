@@ -21,7 +21,7 @@
         compare_card, // Предыдущий номер карты на которую нажали
         delay = 700,
         count_scores = 0, // Счетчик очков
-        pair_cards = field.length / 2, // Счетчик парных карт
+        pair_cards = field.length / 2, // Счетчик парных карт (перевернутые)
         let_click = false, // Позволять нажимать на карты
         count_click = false; // Счетчик нажатий. 0 и 1.
 
