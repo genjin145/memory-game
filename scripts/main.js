@@ -102,11 +102,84 @@
 				compare_card = open_card;
 				this.setAttribute("data-tid", "Card-flipped");
                 
-                if (navigator.userAgent.indexOf(".NET") != -1) {
-                    back_card.style.visibility = "hidden";
-                } else {
-				    card[open_card].classList.add("flipped");          
-                }
+				card[open_card].classList.add("flipped");          
+
+				count_click = true;
+			}
+            
+            if (pair_cards <= 0) {
+                setTimeout(function() {
+                    game_end.style.display = "inline-block";
+                    game.style.display = "none";
+                    scores_value[1].textContent = count_scores;
+                }, 500);
+            }
+		}
+		
+	}
+    
+// Событие для IE
+    
+    function turn_ie() {
+		if (let_click) {
+			
+			// Определим карту на которую было нажатие
+
+			for (var i = 0; i < card.length; i++) {
+				if (card[i] == this) {
+					 open_card = i;
+					break;
+				}
+			}
+			
+			// Проверим карты на совподения
+			
+			if (count_click && compare_card != open_card) { // Второе нажатие
+				if (field[compare_card].id == field[open_card].id) {
+					count_scores += pair_cards * 42;
+					pair_cards--;
+					scores_value[0].textContent = count_scores;
+					
+					this.setAttribute("data-tid", "Card-flipped");
+					card[compare_card].setAttribute("data-tid", "Card-flipped");
+					this.removeEventListener("click", turn_ie); // Снимем обработчик
+					card[compare_card].removeEventListener("click", turn_ie);
+					
+					// Поставим задержку сюда
+
+					let_click = false;
+					setTimeout(function() {
+						let_click = true;
+						card[open_card].style.visibility = "hidden";
+						card[compare_card].style.visibility = "hidden";
+					}, delay);
+					card[open_card].style.backgroundImage = "url(images/Cards/" + field[open_card].id[0].toUpperCase() + field[open_card].suit[0].toUpperCase() + ".png)";
+				} else {
+					count_scores -= (field.length / 2 - pair_cards) * 42;
+//					if (count_scores < 0) {
+//						count_scores = 0;
+//					}
+					scores_value[0].textContent = count_scores;
+					this.setAttribute("data-tid", "Card");
+					card[compare_card].setAttribute("data-tid", "Card");
+					
+					// Поставим задержку и сюда
+					
+					let_click = false;
+					setTimeout(function() {
+						let_click = true;
+                        card[open_card].style.backgroundImage = "url(images/back.png)";
+                        card[compare_card].style.backgroundImage = "url(images/back.png)";
+					}, delay);
+					card[open_card].style.backgroundImage = "url(images/Cards/" + field[open_card].id[0].toUpperCase() + field[open_card].suit[0].toUpperCase() + ".png)";
+				}
+				count_click = false;
+				
+			} else {  // Действие при первом нажатии
+				compare_card = open_card;
+				this.setAttribute("data-tid", "Card-flipped");
+                
+				card[open_card].style.backgroundImage = "url(images/Cards/" + field[open_card].id[0].toUpperCase() + field[open_card].suit[0].toUpperCase() + ".png)";         
 
 				count_click = true;
 			}
@@ -151,49 +224,66 @@
 			field[i + 1].suit = suit[0];
 		}
 		mix(field);
-		
-		// Графически выведем
         
-        for (var i = 0; i < field.length; i++) {
-            field_txt += '<div class="wrapper"><div class="card"><figure class="back_card"></figure><figure class="face_card"></figure></div></div>';
-        }
+        /* Добавим событие для IE и других браузеров
+            В IE не корректно отображается анимация
+        */
         
-		game_field.innerHTML = field_txt;
-        
-        for (var i = 0; i < field.length; i++) {
-			face_card[i].style.backgroundImage = "url(images/Cards/" + field[i].id[0].toUpperCase() + field[i].suit[0].toUpperCase() + ".png)";
-			
-			// Добавим событие
-
-			card[i].addEventListener("click", turn);
-		}
-        
-        setTimeout(function() {
-            if (navigator.userAgent.indexOf(".NET") != -1) {
-                for (var i = 0; i < field.length; i++) {
-				    back_card[i].style.visibility = "hidden";
-                }
-            } else {
-                for (var i = 0; i < field.length; i++) {
-				    card[i].classList.add("flipped");
-                }
+        if (navigator.userAgent.indexOf(".NET") != -1) {
+            for (var i = 0; i < field.length; i++) {
+                field_txt += '<div class="wrapper"><div class="card" data-tid="Card"></div></div>';
             }
-		}, 500);
+            
+            game_field.innerHTML = field_txt;
+            
+            for (var i = 0; i < field.length; i++) {
+                card[i].style.backgroundImage = "url(images/Cards/" + field[i].id[0].toUpperCase() + field[i].suit[0].toUpperCase() + ".png)";
+            }
+            
+            for (var i = 0; i < field.length; i++) {
+                card[i].addEventListener("click", turn_ie);
+            }
         
         // Графически перевернем карты рубашкой вверх
 
-		setTimeout(function() {
-            if (navigator.userAgent.indexOf(".NET") != -1) {
+            setTimeout(function() {
                 for (var i = 0; i < field.length; i++) {
-				    back_card[i].style.visibility = "hidden";
+                    card[i].style.backgroundImage = "url(images/back.png)";
                 }
-            } else {
-                for (var i = 0; i < field.length; i++) {
-				    card[i].classList.remove("flipped");
-                }
+                let_click = true;
+            }, 5000);
+            
+        } else {
+            for (var i = 0; i < field.length; i++) {
+                field_txt += '<div class="wrapper"><div class="card" data-tid="Card"><figure class="back_card"></figure><figure class="face_card"></figure></div></div>';
             }
-		}, 6000);
-		
+        
+            game_field.innerHTML = field_txt;
+        
+            for (var i = 0; i < field.length; i++) {
+                face_card[i].style.backgroundImage = "url(images/Cards/" + field[i].id[0].toUpperCase() + field[i].suit[0].toUpperCase() + ".png)";
+            }
+            for (var i = 0; i < field.length; i++) {
+                card[i].addEventListener("click", turn);
+            }
+            
+            setTimeout(function() {
+                for (var i = 0; i < field.length; i++) {
+                    card[i].classList.add("flipped");
+                }
+            }, 500);
+        
+        // Графически перевернем карты рубашкой вверх
+
+            setTimeout(function() {
+                for (var i = 0; i < field.length; i++) {
+                    card[i].classList.remove("flipped");
+                }
+                let_click = true;
+            }, 6000);
+        }
+        
+        
 	}
 	
     button_start_game.onclick = function () {
@@ -213,9 +303,3 @@
     };
 	
 })();
-
-/* 
-		new Image
-		onload
-
-*/
