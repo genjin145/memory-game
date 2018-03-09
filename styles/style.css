@@ -19,6 +19,10 @@ body {
     background: #1B692D;
 }
 
+a {
+    cursor: pointer;
+}
+
 .app {
     position: absolute;
     width: 100%;

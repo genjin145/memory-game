@@ -10,6 +10,7 @@
         scores_value = document.getElementsByClassName("scores_value"),
         game_field = document.getElementsByClassName("game_field")[0],
         card = document.getElementsByClassName("card"),
+        back_card = document.getElementsByClassName("back_card"),
         face_card = document.getElementsByClassName("face_card"),
 	
         deck = ["2", "3", "4", "5", "6", "7", "8", "9", "0", "jack", "queen", "king", "ace"],
@@ -100,8 +101,13 @@
 			} else {  // Действие при первом нажатии
 				compare_card = open_card;
 				this.setAttribute("data-tid", "Card-flipped");
+                
+                if (navigator.userAgent.indexOf(".NET") != -1) {
+                    back_card.style.visibility = "hidden";
+                } else {
+				    card[open_card].classList.add("flipped");          
+                }
 
-				card[open_card].classList.add("flipped");
 				count_click = true;
 			}
             
@@ -147,10 +153,11 @@
 		mix(field);
 		
 		// Графически выведем
-
-		for (var i = 0; i < field.length; i++) {
-			field_txt += '<div class="wrapper"><div class="card"><figure class="back_card"></figure><figure class="face_card"></figure></div></div>';
-		}
+        
+        for (var i = 0; i < field.length; i++) {
+            field_txt += '<div class="wrapper"><div class="card"><figure class="back_card"></figure><figure class="face_card"></figure></div></div>';
+        }
+        
 		game_field.innerHTML = field_txt;
         
         for (var i = 0; i < field.length; i++) {
@@ -162,18 +169,29 @@
 		}
         
         setTimeout(function() {
-            for (var i = 0; i < field.length; i++) {
-				card[i].classList.add("flipped");
-			}
+            if (navigator.userAgent.indexOf(".NET") != -1) {
+                for (var i = 0; i < field.length; i++) {
+				    back_card[i].style.visibility = "hidden";
+                }
+            } else {
+                for (var i = 0; i < field.length; i++) {
+				    card[i].classList.add("flipped");
+                }
+            }
 		}, 500);
         
         // Графически перевернем карты рубашкой вверх
 
 		setTimeout(function() {
-			for (var i = 0; i < field.length; i++) {
-				let_click = true;
-				card[i].classList.remove("flipped");
-			}
+            if (navigator.userAgent.indexOf(".NET") != -1) {
+                for (var i = 0; i < field.length; i++) {
+				    back_card[i].style.visibility = "hidden";
+                }
+            } else {
+                for (var i = 0; i < field.length; i++) {
+				    card[i].classList.remove("flipped");
+                }
+            }
 		}, 6000);
 		
 	}
