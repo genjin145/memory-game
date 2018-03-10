@@ -49,7 +49,7 @@ a {
     vertical-align: middle;
     background: #1E7332;
     border-radius: 100%;
-    box-shadow: 0 0 100px 100px #1E7332;
+    box-shadow: 0 0 250px 100px #1E7332;
 }
 
 #game_start, #game, #game_end {

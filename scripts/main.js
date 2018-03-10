@@ -280,7 +280,7 @@
                     card[i].classList.remove("flipped");
                 }
                 let_click = true;
-            }, 6000);
+            }, 5000);
         }
         
         
